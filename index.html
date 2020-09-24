@@ -327,30 +327,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="container">
 		<h3 class="text-center">Contact Me</h3>
 		<div class="col-lg-6 col-md-6 col-sm-6 comment-agile1" data-aos="flip-left">
-			<form action="" method="">
+			<form id="submit-form"  onsubmit="return validateForm();" action="" autocomplete="off">
                 <div class="control-group form-group">
                     <div class="controls">
-                        <input type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                        <input type="text" class="form-control" id="name" placeholder="Full Name" >
                         <p class="help-block"></p>
                     </div>
                 </div>
 				<div class="control-group form-group">
                     <div class="controls">
-                        <input type="email" class="form-control" id="email" placeholder="Email Address" required="">
+                        <input type="email" class="form-control" id="email" placeholder="Email Address" >
                     </div>
                 </div>
 				<div class="control-group form-group">
                     <div class="controls">
-                        <input type="text" class="form-control" id="name1" placeholder="Phone Number" required="">
+                        <input type="text" class="form-control" id="name1" placeholder="Phone Number" >
 						<p class="help-block"></p>
 					</div>
                 </div>
                 <div class="control-group form-group">
                     <div class="controls">
-                        <textarea rows="10" cols="100" class="form-control" id="message" placeholder="Message" required=""></textarea>
+                        <textarea rows="10" cols="100" class="form-control" id="message" placeholder="Message" ></textarea>
                     </div>
                 </div>
-				<button onclick="validateForm()" type="submit" class="btn btn-primary">Send Message</button>
+				<button  type="submit" class="btn btn-primary">Send Message</button>
             </form>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 comment-agile2" data-aos="flip-right">
@@ -449,19 +449,81 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
-			event.preventDefault();
+			event.preventDefaul/t();
 			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 		});
 	});
 </script> 
 <!-- //scrolling script -->
+<script>
+function validateForm() {
+	console.log("vakidate funxction");
+	var field1 = document.getElementById("name").value;
+		var field2 = document.getElementById("email").value;
+		var field3 = document.getElementById("name1").value;
+		var field4 = document.getElementById("message").value;
+		 
+	if(field1 === ""){
+		console.log("condition1");
+		alert('Please Fill Your Name');
+		
+		return false;
+	}
+	else if(field2 === ""){
+		alert('Please Fill Your Email');
+		
+		return false;
+	}
+	else if(field3 === "" ){
+		alert('Please Fill Your Mobile Number');
+		
+		return false;
+	}else if(field3 === field3.length > 10 || field3.length < 10)
+	{
+		alert('Please Fill Your Mobile Number in correct format');
+		
+		return false;
+	}
+	else
+	{
+		alert('Form Submitted Successfully..!!');
+		document.getElementById("submit-form").submit();
+	}
+
+
 	
-	<script type="text/javascript">
+
+	$.ajax({
+		url: "https://script.google.com/macros/s/AKfycbzi4c-8JoLyKJMc_rpeIBhKijwjUlp8bVvfJTAU/exec",
+		data: {"Name": field1, "Email": field2, "Mobile Number": field3, "Message": field4},
+		type: "POST",
+		dataType: "xml",
+		success: function(d)
+		{
+			$('#success-msg').show();
+			window.location.reload();
+		},
+		error: function(x, y, z)
+			{
+
+				
+				$('#form').hide();
+				
+			}
+	});
+	return false;
+}
+</script>
+
+	<!--<script type="text/javascript">
+	var script_url = "https://script.google.com/macros/s/AKfycbzi4c-8JoLyKJMc_rpeIBhKijwjUlp8bVvfJTAU/exec";
+
 	function validateForm()
 	{
 		var name = document.getElementById("name").value;
 		var email = document.getElementById("email").value;
 		var message = document.getElementById("message").value;
+		var url = script_url+ "?ca"
 		if(name=="")
 		{
 			alert('Enter the name');
@@ -480,7 +542,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 	}
-	</script>
+	</script>-->
 </body>
 <!-- //Body -->
 </html>
